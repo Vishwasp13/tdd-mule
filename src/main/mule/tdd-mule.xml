@@ -13,6 +13,11 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 		<http:listener-connection host="0.0.0.0" port="8085" />
 	</http:listener-config>
 	<flow name="tdd-muleFlow" doc:id="89b1abcd-dc20-45dc-8010-e9f04415892b" >
+		<http:listener doc:name="Listener" doc:id="9e06540a-5556-45da-b416-fc380ef8ef34" config-ref="HTTP_Listener_config" path="/">
+			<http:error-response statusCode="#[vars.statusCode default 500]" >
+				<http:body ><![CDATA[#[payload]]]></http:body>
+			</http:error-response>
+		</http:listener>
 		<db:select doc:name="Select" doc:id="6323673d-7ab4-4ce6-9620-dc7c298aa70d" config-ref="Database_Config">
 			<db:sql >SELECT PRIME FROM USERS WHERE ID = :id</db:sql>
 			<db:input-parameters ><![CDATA[#[%dw 2.0
@@ -31,9 +36,12 @@ output application/java
 output application/json
 ---
 {
-	"message":"Customer does not exist"
+	"message":"Customer does not exists"
 }]]></ee:set-payload>
 					</ee:message>
+					<ee:variables >
+						<ee:set-variable variableName="statusCode" ><![CDATA[404]]></ee:set-variable>
+					</ee:variables>
 				</ee:transform>
 			</on-error-propagate>
 		</error-handler>
