@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
-	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
-	xsi:schemaLocation="
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:munit="http://www.mulesoft.org/schema/mule/munit"
+	xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xsi:schemaLocation="
 		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
-		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
 	<munit:config name="new-test-suite.xml" />
-	<munit:test name="new-test-suiteTest" description="MUnit Test" doc:id="2ce71b05-4d41-4087-866c-450a4438dd01" >
+	<http:request-config name="HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="2c272885-9748-49d6-8296-6fcf77be0b52" >
+		<http:request-connection host="localhost" port="8085" />
+	</http:request-config>
+	<munit:test name="new-test-suiteTest" description="MUnit Test" doc:id="b93c0c25-c723-4c7c-acd2-338945299042">
 		<munit:execution >
-			<flow-ref doc:name="Flow Reference" doc:id="bf3c67c4-5f1e-40bc-bf4d-69af1ad67d28" name="tdd-muleFlow"/>
+			<flow-ref doc:name="Flow Reference" doc:id="332a0615-8faa-419a-8d79-3479fa1dc802" name="tdd-muleFlow"/>
 		</munit:execution>
 		<munit:validation >
-			<munit-tools:assert-that doc:name="Assert that" doc:id="101bf619-0bbd-466c-ab7d-e63009fda5cc" expression="#[payload]" is="#[MunitTools::equalTo('[]')]"/>
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="2e1d9343-0f13-4636-9dff-819b5c1bfe49" actual="#[payload]" expected="#[[]]"/>
 		</munit:validation>
 	</munit:test>
 
