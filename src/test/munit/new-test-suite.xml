@@ -16,8 +16,8 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 		<munit:execution >
 			<flow-ref doc:name="Flow Reference" doc:id="332a0615-8faa-419a-8d79-3479fa1dc802" name="tdd-muleFlow"/>
 		</munit:execution>
-		<munit:validation >
-			<munit-tools:assert-equals doc:name="Assert equals" doc:id="2e1d9343-0f13-4636-9dff-819b5c1bfe49" actual="#[payload]" expected="#[[]]"/>
+		<munit:validation>
+			<munit-tools:assert-that doc:name="Assert that" doc:id="b4e3ca4a-a610-4148-9241-96078453f659" expression="#[payload]" is="#[MunitTools::equalTo(readUrl('classpath://error.json'))]"/>
 		</munit:validation>
 	</munit:test>
 

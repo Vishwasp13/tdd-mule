@@ -22,13 +22,20 @@ output application/java
 	id: attributes.queryParams.id
 }]]]></db:input-parameters>
 		</db:select>
-		<ee:transform doc:name="Transform Message" doc:id="f3f123b1-b9c9-4f2e-86c8-8374c4938bdd" >
-			<ee:message >
-				<ee:set-payload ><![CDATA[%dw 2.0
+		<raise-error doc:name="Raise error" doc:id="6c08c109-c500-4701-83f2-dcac6d90ea66" type="CUSTOMER:NOTFOUND"/>
+		<error-handler >
+			<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="b6bc6704-77d1-4719-90e7-25b2eca0a734" >
+				<ee:transform doc:name="Transform Message" doc:id="f4b6de15-e9e7-4947-ac20-3577e4ac687a" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
 output application/json
 ---
-payload]]></ee:set-payload>
-			</ee:message>
-		</ee:transform>
+{
+	"message":"Customer does not exist"
+}]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+			</on-error-propagate>
+		</error-handler>
 	</flow>
 </mule>
