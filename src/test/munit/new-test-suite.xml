@@ -50,5 +50,23 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 			<munit-tools:assert-that doc:name="Assert that" doc:id="a055232d-12ae-4bf4-87c8-0fbb70925886" is="#[MunitTools::equalTo(readUrl('classpath://prime-products.json'))]" expression="#[payload]"/>
 		</munit:validation>
 	</munit:test>
+	<munit:test name="new-test-suiteTest3" description="MUnit Test" doc:id="fada5978-9030-4cc4-afc4-00fb1bfbeada" >
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="b00b8aa0-62c8-45bc-8639-d75b69a9a7f9" >
+				<munit:attributes value="#[
+{
+  'queryParams':{
+    'id':'1'
+  }
+}
+
+]" />
+			</munit:set-event>
+			<flow-ref doc:name="Flow Reference" doc:id="c4479ea5-2f82-418c-add8-f479a499e85d" name="tdd-muleFlow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="9c0b4a58-1f3c-4100-89b5-7900e1e9eb91" is="#[MunitTools::equalTo(readUrl('classpath://non-prime-products.json'))]" expression="#[payload]"/>
+		</munit:validation>
+	</munit:test>
 
 </mule>
