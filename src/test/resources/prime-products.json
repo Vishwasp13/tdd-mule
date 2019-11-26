@@ -1,0 +1,38 @@
+[
+  {
+    "PRIME": "Y",
+    "ORIGINAL_PRICE": "55000",
+    "OFFER_UNTIL": "2020-01-05T00:00:00",
+    "BRAND_NAME": "Apple",
+    "ID": "1",
+    "PRODUCT_NAME": "iPhone X",
+    "OFFER_PRICE": "50000"
+  },
+  {
+    "PRIME": "Y",
+    "ORIGINAL_PRICE": "50000",
+    "OFFER_UNTIL": "2020-01-05T00:00:00",
+    "BRAND_NAME": "Samsung",
+    "ID": "3",
+    "PRODUCT_NAME": "Galaxy Note 9",
+    "OFFER_PRICE": "45000"
+  },
+  {
+    "PRIME": "Y",
+    "ORIGINAL_PRICE": "35000",
+    "OFFER_UNTIL": "2020-01-05T00:00:00",
+    "BRAND_NAME": "Motorola",
+    "ID": "8",
+    "PRODUCT_NAME": "Moto Razr",
+    "OFFER_PRICE": "30000"
+  },
+  {
+    "PRIME": "Y",
+    "ORIGINAL_PRICE": "55000",
+    "OFFER_UNTIL": "2020-01-05T00:00:00",
+    "BRAND_NAME": "Apple",
+    "ID": "2",
+    "PRODUCT_NAME": "iPhone X",
+    "OFFER_PRICE": "50000"
+  }
+]

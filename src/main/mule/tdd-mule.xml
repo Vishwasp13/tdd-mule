@@ -27,7 +27,7 @@ output application/java
 	id: attributes.queryParams.id
 }]]]></db:input-parameters>
 		</db:select>
-		<raise-error doc:name="Raise error" doc:id="6c08c109-c500-4701-83f2-dcac6d90ea66" type="CUSTOMER:NOTFOUND"/>
+		<raise-error doc:name="Raise error" doc:id="6c08c109-c500-4701-83f2-dcac6d90ea66" type="CUSTOMER:NOTFOUND" />
 		<error-handler >
 			<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="b6bc6704-77d1-4719-90e7-25b2eca0a734" >
 				<ee:transform doc:name="Transform Message" doc:id="f4b6de15-e9e7-4947-ac20-3577e4ac687a" >
