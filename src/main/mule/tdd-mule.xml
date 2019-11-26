@@ -56,6 +56,19 @@ payload]]></ee:set-payload>
 					</ee:message>
 				</ee:transform>
 			</when>
+			<when expression="#[vars.prime == 'N']">
+				<db:select doc:name="Select" doc:id="3c0f7a5e-c38e-4f57-8631-6970d7d5abdf" config-ref="Database_Config">
+					<db:sql >SELECT * FROM PRODUCTS WHERE PRIME = 'N'</db:sql>
+				</db:select>
+				<ee:transform doc:name="Transform Message" doc:id="f7410e69-c7b0-4164-8fed-642b51ad0fb7" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+			</when>
 			<otherwise >
 				<raise-error doc:name="Raise error" doc:id="6c08c109-c500-4701-83f2-dcac6d90ea66" type="CUSTOMER:NOTFOUND" />
 			</otherwise>
