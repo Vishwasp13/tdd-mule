@@ -43,24 +43,17 @@ payload[0].PRIME]]></ee:set-variable>
 			</ee:variables>
 		</ee:transform>
 		<choice doc:name="Choice" doc:id="e5e09060-906f-488f-b0ec-4d1157a191ef" >
-			<when expression="#[vars.prime == 'Y']">
+			<when expression="#[vars.prime != null]">
 				<db:select doc:name="Select" doc:id="97c1ca4c-5ea8-4636-a122-94a34440e6b0" config-ref="Database_Config">
-					<db:sql >SELECT * FROM PRODUCTS WHERE PRIME = 'Y'</db:sql>
+					<db:sql >SELECT * FROM PRODUCTS WHERE PRIME = :prime</db:sql>
+					<db:input-parameters ><![CDATA[#[%dw 2.0
+output application/java
+---
+{
+	prime: vars.prime
+}]]]></db:input-parameters>
 				</db:select>
 				<ee:transform doc:name="Transform Message" doc:id="8f618e99-e525-4fb8-a640-d6bfa9ce28ef" >
-					<ee:message >
-						<ee:set-payload ><![CDATA[%dw 2.0
-output application/json
----
-payload]]></ee:set-payload>
-					</ee:message>
-				</ee:transform>
-			</when>
-			<when expression="#[vars.prime == 'N']">
-				<db:select doc:name="Select" doc:id="3c0f7a5e-c38e-4f57-8631-6970d7d5abdf" config-ref="Database_Config">
-					<db:sql >SELECT * FROM PRODUCTS WHERE PRIME = 'N'</db:sql>
-				</db:select>
-				<ee:transform doc:name="Transform Message" doc:id="f7410e69-c7b0-4164-8fed-642b51ad0fb7" >
 					<ee:message >
 						<ee:set-payload ><![CDATA[%dw 2.0
 output application/json
