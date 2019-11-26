@@ -27,7 +27,39 @@ output application/java
 	id: attributes.queryParams.id
 }]]]></db:input-parameters>
 		</db:select>
-		<raise-error doc:name="Raise error" doc:id="6c08c109-c500-4701-83f2-dcac6d90ea66" type="CUSTOMER:NOTFOUND" />
+		<ee:transform doc:name="Transform Message" doc:id="1022bad5-e70f-4172-8867-a29f7d359075" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+{
+}]]></ee:set-payload>
+			</ee:message>
+			<ee:variables >
+				<ee:set-variable variableName="prime" ><![CDATA[%dw 2.0
+output application/java
+---
+payload[0].PRIME]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<choice doc:name="Choice" doc:id="e5e09060-906f-488f-b0ec-4d1157a191ef" >
+			<when expression="#[vars.prime == 'Y']">
+				<db:select doc:name="Select" doc:id="97c1ca4c-5ea8-4636-a122-94a34440e6b0" config-ref="Database_Config">
+					<db:sql >SELECT * FROM PRODUCTS WHERE PRIME = 'Y'</db:sql>
+				</db:select>
+				<ee:transform doc:name="Transform Message" doc:id="8f618e99-e525-4fb8-a640-d6bfa9ce28ef" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+			</when>
+			<otherwise >
+				<raise-error doc:name="Raise error" doc:id="6c08c109-c500-4701-83f2-dcac6d90ea66" type="CUSTOMER:NOTFOUND" />
+			</otherwise>
+		</choice>
 		<error-handler >
 			<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="b6bc6704-77d1-4719-90e7-25b2eca0a734" >
 				<ee:transform doc:name="Transform Message" doc:id="f4b6de15-e9e7-4947-ac20-3577e4ac687a" >
