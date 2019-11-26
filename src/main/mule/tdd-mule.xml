@@ -18,7 +18,7 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 				<http:body ><![CDATA[#[payload]]]></http:body>
 			</http:error-response>
 		</http:listener>
-		<db:select doc:name="Select" doc:id="6323673d-7ab4-4ce6-9620-dc7c298aa70d" config-ref="Database_Config">
+		<db:select doc:name="Get Prime Status" doc:id="6323673d-7ab4-4ce6-9620-dc7c298aa70d" config-ref="Database_Config">
 			<db:sql >SELECT PRIME FROM USERS WHERE ID = :id</db:sql>
 			<db:input-parameters ><![CDATA[#[%dw 2.0
 output application/java
@@ -27,10 +27,10 @@ output application/java
 	id: attributes.queryParams.id
 }]]]></db:input-parameters>
 		</db:select>
-		<ee:transform doc:name="Transform Message" doc:id="1022bad5-e70f-4172-8867-a29f7d359075" >
+		<ee:transform doc:name="Extract Prime Status" doc:id="1022bad5-e70f-4172-8867-a29f7d359075" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
-output application/java
+output application/json
 ---
 {
 }]]></ee:set-payload>
@@ -44,7 +44,7 @@ payload[0].PRIME]]></ee:set-variable>
 		</ee:transform>
 		<choice doc:name="Choice" doc:id="e5e09060-906f-488f-b0ec-4d1157a191ef" >
 			<when expression="#[vars.prime != null]">
-				<db:select doc:name="Select" doc:id="97c1ca4c-5ea8-4636-a122-94a34440e6b0" config-ref="Database_Config">
+				<db:select doc:name="Get Products" doc:id="97c1ca4c-5ea8-4636-a122-94a34440e6b0" config-ref="Database_Config">
 					<db:sql >SELECT * FROM PRODUCTS WHERE PRIME = :prime</db:sql>
 					<db:input-parameters ><![CDATA[#[%dw 2.0
 output application/java
@@ -53,7 +53,7 @@ output application/java
 	prime: vars.prime
 }]]]></db:input-parameters>
 				</db:select>
-				<ee:transform doc:name="Transform Message" doc:id="8f618e99-e525-4fb8-a640-d6bfa9ce28ef" >
+				<ee:transform doc:name="List of Products" doc:id="8f618e99-e525-4fb8-a640-d6bfa9ce28ef" >
 					<ee:message >
 						<ee:set-payload ><![CDATA[%dw 2.0
 output application/json

@@ -12,12 +12,12 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 	<http:request-config name="HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="2c272885-9748-49d6-8296-6fcf77be0b52" >
 		<http:request-connection host="localhost" port="8085" />
 	</http:request-config>
-	<munit:test name="new-test-suiteTest" description="MUnit Test" doc:id="b93c0c25-c723-4c7c-acd2-338945299042" expectedErrorType="CUSTOMER:NOTFOUND">
+	<munit:test name="InvalidCustomer1" description="MUnit Test" doc:id="b93c0c25-c723-4c7c-acd2-338945299042" expectedErrorType="CUSTOMER:NOTFOUND">
 		<munit:execution >
 			<flow-ref doc:name="Flow Reference" doc:id="332a0615-8faa-419a-8d79-3479fa1dc802" name="tdd-muleFlow"/>
 		</munit:execution>
 	</munit:test>
-	<munit:test name="new-test-suiteTest1" description="MUnit Test" doc:id="c7d15d47-8ca9-4c1e-b5a4-fc5c674b234c">
+	<munit:test name="InvalidCustomer" description="MUnit Test" doc:id="c7d15d47-8ca9-4c1e-b5a4-fc5c674b234c">
 		<munit:enable-flow-sources >
 			<munit:enable-flow-source value="tdd-muleFlow" />
 		</munit:enable-flow-sources>
@@ -33,7 +33,7 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 			<munit-tools:assert-that doc:name="Assert that" doc:id="b4e3ca4a-a610-4148-9241-96078453f659" expression="#[payload]" is="#[MunitTools::equalTo(readUrl('classpath://error.json'))]" />
 		</munit:validation>
 	</munit:test>
-	<munit:test name="new-test-suiteTest2" description="MUnit Test" doc:id="d5de0ff3-855f-4175-be7d-15f7148b8b44">
+	<munit:test name="Prime-Products" description="MUnit Test" doc:id="d5de0ff3-855f-4175-be7d-15f7148b8b44">
 		<munit:execution >
 			<munit:set-event doc:name="Set Event" doc:id="54a50a57-19ae-4a89-bd7c-f8a2a72303c2" >
 				<munit:attributes value="#[
@@ -50,9 +50,38 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 			<munit-tools:assert-that doc:name="Assert that" doc:id="a055232d-12ae-4bf4-87c8-0fbb70925886" is="#[MunitTools::equalTo(readUrl('classpath://prime-products.json'))]" expression="#[payload]"/>
 		</munit:validation>
 	</munit:test>
-	<munit:test name="new-test-suiteTest3" description="MUnit Test" doc:id="fada5978-9030-4cc4-afc4-00fb1bfbeada" >
+	<munit:test name="Non-Prime-Products" description="MUnit Test" doc:id="fada5978-9030-4cc4-afc4-00fb1bfbeada" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="4de23c65-d6ff-40c0-a845-f62901e241c5" processor="db:select">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="Get Prime Status" attributeName="doc:name" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[readUrl('classpath://users.dwl')]" mediaType="application/java" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock when" doc:id="09a3446b-41ab-4b35-94c0-32bc8ba4ca31" processor="db:select">
+				<munit-tools:with-attributes>
+					<munit-tools:with-attribute whereValue="Get Products" attributeName="doc:name" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return>
+					<munit-tools:payload value="#[readUrl('classpath://non-prime-products.dwl')]" mediaType="application/java" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:spy doc:name="Spy" doc:id="9dbaa5a4-3bef-4eb6-987b-fc478b44ea04" processor="ee:transform">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="List of Products" attributeName="doc:name" />
+				</munit-tools:with-attributes>
+				<munit-tools:before-call >
+					<munit-tools:assert-that doc:name="Assert that" doc:id="8bb10a72-b8eb-4282-80ba-2320bb61d87f" is="#[MunitTools::equalTo(readUrl('classpath://non-prime-products.dwl'))]" expression="#[payload]"/>
+				</munit-tools:before-call>
+				<munit-tools:after-call >
+					<munit-tools:assert-that doc:name="Assert that" doc:id="72ebe86b-828a-44b0-9d61-3dcdbdbb5082" is="#[MunitTools::equalTo(readUrl('classpath://non-prime-products.json'))]" expression="#[payload]"/>
+				</munit-tools:after-call>
+			</munit-tools:spy>
+		</munit:behavior>
 		<munit:execution >
-			<munit:set-event doc:name="Set Event" doc:id="b00b8aa0-62c8-45bc-8639-d75b69a9a7f9" >
+			<munit:set-event doc:name="Set Event" doc:id="b00b8aa0-62c8-45bc-8639-d75b69a9a7f9">
 				<munit:attributes value="#[
 {
   'queryParams':{

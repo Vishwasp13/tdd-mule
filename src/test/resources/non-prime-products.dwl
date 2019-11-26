@@ -1,0 +1,41 @@
+%dw 2.0
+output application/java
+---
+[
+  {
+    "PRIME": "N",
+    "ORIGINAL_PRICE": "32000",
+    "OFFER_UNTIL": "2020-01-05T00:00:00",
+    "BRAND_NAME": "Xiaomi",
+    "ID": "4",
+    "PRODUCT_NAME": "Mi K20 Pro",
+    "OFFER_PRICE": "29000"
+  },
+  {
+    "PRIME": "N",
+    "ORIGINAL_PRICE": "22000",
+    "OFFER_UNTIL": "2020-01-05T00:00:00",
+    "BRAND_NAME": "IBM",
+    "ID": "5",
+    "PRODUCT_NAME": "Laptop",
+    "OFFER_PRICE": "18000"
+  },
+  {
+    "PRIME": "N",
+    "ORIGINAL_PRICE": "30000",
+    "OFFER_UNTIL": "2020-01-05T00:00:00",
+    "BRAND_NAME": "Oppo",
+    "ID": "6",
+    "PRODUCT_NAME": "F11 Pro",
+    "OFFER_PRICE": "25000"
+  },
+  {
+    "PRIME": "N",
+    "ORIGINAL_PRICE": "25000",
+    "OFFER_UNTIL": "2020-01-05T00:00:00",
+    "BRAND_NAME": "Vivo",
+    "ID": "7",
+    "PRODUCT_NAME": "V15 Pro",
+    "OFFER_PRICE": "21000"
+  }
+]
