@@ -27,10 +27,7 @@
 				<extensions>true</extensions>
 				<configuration>
 				<sharedLibraries>
-                        <sharedLibrary>
-                            <groupId>com.mycompany</groupId>
-                            <artifactId>h2-1.4.200</artifactId>
-                        </sharedLibrary>
+                       
                     </sharedLibraries>
                 </configuration>
 			</plugin>
@@ -86,11 +83,7 @@
             <version>1.5.4</version>
             <classifier>mule-plugin</classifier>
         </dependency>
-    	<dependency>
-            <groupId>com.mycompany</groupId>
-            <artifactId>h2-1.4.200</artifactId>
-            <version>0.1</version>
-        </dependency>
+    	
     	<dependency>
             <groupId>com.mulesoft.munit</groupId>
             <artifactId>munit-tools</artifactId>
